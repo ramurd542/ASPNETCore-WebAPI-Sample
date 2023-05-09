@@ -5,17 +5,21 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: '7.0.x'
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
-      
-    - name: publish dotnet
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        run: |
+          # Set the path to the .NET Core SDK installation
+          export DOTNET_ROOT=/path/to/dotnet/sdk
+
+      - name: Build and Test
+        run: |
+          # Add your build and test commands here
+          
+          # You can use the DOTNET_ROOT environment variable to reference the .NET Core SDK
+          echo "Using .NET Core SDK from: $DOTNET_ROOT"
+
